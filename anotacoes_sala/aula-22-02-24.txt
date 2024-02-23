@@ -1,4 +1,0 @@
-Como calcular a quantidade de paginas 
-const quantidadeDePaginas = quantidadeDeRegistros/tamanhoDaPagina (proximo valor inteiro)
-const NB > NR/FR (numero de buckets)
-

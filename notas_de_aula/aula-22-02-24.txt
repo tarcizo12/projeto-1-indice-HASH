@@ -1,0 +1,10 @@
+1. Como calcular a quantidade de paginas 
+const quantidadeDePaginas = quantidadeDeRegistros/tamanhoDaPagina (proximo valor inteiro)
+const NB > NR/FR (numero de buckets)
+
+
+2. Calculo de estatisticas
+O calculo da colisão e overflow é o percentil entre a quantidade de casos em relação á quantidade total de registros
+
+3. Indices hash
+A funcao de hash deve ser escolhida arbitrariamente, criar divisões por numeros primos para evitar colisões
