@@ -1,5 +1,5 @@
 import { WordData } from "../model/WordData";
-import { FileReader } from "../data/FileReader";
+import { FileReader } from "../model/FileReader";
 
 export class WordDataService{
     private PATH_TXT: string = 'src/data/words_alpha.txt'
