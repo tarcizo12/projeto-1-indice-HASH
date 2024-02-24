@@ -6,13 +6,13 @@ export class Table extends BaseClass{
 
     constructor(private tuples: Tuple[]) {
         super();
-    }
+    };
 
     getListOfTuples(): Tuple[]{
         return this.tuples;
-    }
+    };
 
     setListOfTuples(list: Tuple[]): void{
         this.tuples = list;
-    }
+    };
 };

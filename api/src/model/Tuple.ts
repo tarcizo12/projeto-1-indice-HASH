@@ -4,25 +4,25 @@ import { BaseClass } from "../utils/BaseClass";
 export class Tuple extends BaseClass{
     constructor(private line: number, private valueOfData: string) {
         super();
-    }
+    };
 
     
     getLine(): number {
         return this.line;
-    }
+    };
 
     
     setLine(value: number): void {
         this.line = value;
-    }
+    };
 
     
     getValueOfData(): string {
         return this.valueOfData;
-    }
+    };
 
     
     setValueOfData(valueOfData: string): void {
         this.valueOfData = valueOfData;
-    }
+    };
 };

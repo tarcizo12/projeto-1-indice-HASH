@@ -10,6 +10,6 @@ export class TableService{
         );
 
         return table;
-    }
+    };
 
-}
+};

@@ -21,8 +21,5 @@ export class TupleService{
         return words
     };
 
-    
-
-
     getPath(): string{ return this.PATH_TXT}
 };

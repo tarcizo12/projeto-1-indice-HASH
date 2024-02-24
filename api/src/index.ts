@@ -5,11 +5,13 @@ import { Table } from "./model/Table";
 class App {
     private app: express.Application;
     private tableService: TableService;
+    private table: Table;
 
     constructor() {
         this.app = express();
         this.tableService = new TableService();
         this.setupRoutes();
+        this.table = this.tableService.getTableOfTXT();
     }
 
     private setupRoutes(): void {
@@ -20,24 +22,25 @@ class App {
         });
 
         this.app.get('/table', (req, res) => {
-            const table: Table = this.tableService.getTableOfTXT();
+            ;
             return res.json({
                 status: "Dados de tabela",
-                currentClass: table.getClassName(),
-                values: table
+                currentClass: this.table.getClassName(),
+                values: this.table
             });
         });
 
         this.app.get('/table/:value', (req, res) => {
             const value = req.params.value;
-            const table: Table = this.tableService.getTableOfTXT();
             
             return res.json({
                 status: "Dados de tabela",
-                currentClass: table.getClassName(),
-                values: table.getListOfTuples()[value],
+                currentClass: this.table.getClassName(),
+                values: this.table.getListOfTuples()[value],
             });
         });
+
+ 
     }
 
     public start(port: number): void {
