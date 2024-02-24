@@ -1,19 +1,19 @@
-import { WordData } from "../model/WordData";
+import { Tuple } from "../model/Tuple";
 import { FileReader } from "../model/FileReader";
 
-export class WordDataService{
+export class TupleService{
     private PATH_TXT: string = 'src/data/words_alpha.txt'
 
-    getValuesTxt():  WordData[] {
+    getValuesTxt():  Tuple[] {
         const fileReader = new FileReader(this.getPath());
-        const words: WordData[] = []
+        const words: Tuple[] = []
 
         fileReader.readFromFile();
         const fileLines = fileReader.getLines();    
 
         fileLines.forEach((currentValue, index) => {
             words.push(
-                new WordData(index , currentValue)
+                new Tuple(index , currentValue)
             )
         });
         
@@ -21,6 +21,8 @@ export class WordDataService{
         return words
     };
 
+    
+
 
     getPath(): string{ return this.PATH_TXT}
-}
+};
