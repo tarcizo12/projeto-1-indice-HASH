@@ -1,5 +1,5 @@
 import * as fs from 'fs';
-
+//Classe para leitura
 
 export class FileReader {
     private lines: string[] = [];
@@ -21,4 +21,4 @@ export class FileReader {
     getLines(): string[] {
         return this.lines;
     }
-}
+};
