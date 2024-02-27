@@ -2,6 +2,7 @@ import * as express from 'express';
 import { TableService } from './service/TableService';
 import { Table } from './model/Table';
 import { PageService } from './service/PageService';
+import { Page } from 'model/Page';
 
 class App {
   private app: express.Application;
@@ -31,7 +32,7 @@ class App {
     //Indicie especifico da tablea
     this.app.get('/table/:value', (req, res) => {
       const value = req.params.value;
-
+      
       return res.json({
         status: 'Dados de tabela',
         currentClass: this.table.getClassName(),
@@ -42,11 +43,12 @@ class App {
     //Divisao de paginas
     this.app.get('/page/:sizeDivison', (req, res) => {
         const value: string = req.params.sizeDivison;
-  
+        const pages: Page[] = this.pageService.getPagination(Number(value), this.table);
+
         return res.json({
           status: 'Paginas',
-          currentClass: this.table.getClassName(),
-          values: this.pageService.getPagination(Number(value), this.table),
+          currentClass: pages[0].getClassName(),
+          values: pages,
         });
       });
 
