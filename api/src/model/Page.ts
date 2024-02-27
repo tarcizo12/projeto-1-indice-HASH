@@ -5,6 +5,7 @@ export class Page extends BaseClass {
   constructor(private pageNumber: number, private tuples: Tuple[]) {
     super();
   }
+  
 
   getPageNumber(): number {
     return this.pageNumber;
