@@ -2,9 +2,9 @@
   "name": "projeto-1-indice-hash",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
-    "start": "NODE_PATH=./build node build/index.js",
+    "start": "NODE_PATH=./build node build/index.ts",
     "build": "tsc -p .",
     "dev": "nodemon src/index.ts"
   },
