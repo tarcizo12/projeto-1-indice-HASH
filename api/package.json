@@ -1,0 +1,25 @@
+{
+  "name": "projeto-1-indice-hash",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "NODE_PATH=./build node build/index.js",
+    "build": "tsc -p .",
+    "dev": "nodemon src/index.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@typescript-eslint/eslint-plugin": "^7.1.0",
+    "@typescript-eslint/parser": "^7.1.0",
+    "eslint": "^8.57.0",
+    "nodemon": "^3.1.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

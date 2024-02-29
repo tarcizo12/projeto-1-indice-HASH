@@ -1,9 +1,9 @@
 import React from 'react';
-import '../App.css';
+import '../index.css';
 
 function SimpleButton({ onClick, label }) {
   return (
-    <button onClick={onClick}>
+    <button className='BotaoForm' onClick={onClick}>
       {label}
     </button>
   );
