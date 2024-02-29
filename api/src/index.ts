@@ -1,59 +1,47 @@
 import * as express from 'express';
 import { TableService } from './service/TableService';
 import { Table } from './model/Table';
-import { PageService } from './service/PageService';
-import { Page } from 'model/Page';
+import { MainService } from './service/MainService';
+import { Page } from './model/Page';
+
 
 class App {
   private app: express.Application;
   private tableService: TableService;
-  private pageService: PageService;
+  private mainService: MainService;
   private table: Table;
 
   constructor() {
-    this.app = express();
     this.tableService = new TableService();
-    this.pageService = new PageService();
-    this.setupRoutes();
+    this.mainService = new MainService();
     this.table = this.tableService.getTableOfTXT();
+    this.app = express();
+    this.setupRoutes();
   }
 
   private setupRoutes(): void {
 
-    //Rota total da tabela  
-    this.app.get('/table', (req, res) => {
-      return res.json({
-        status: 'Dados de tabela',
-        currentClass: this.table.getClassName(),
-        values: this.table,
-      });
-    });
-
-    //Indicie especifico da tablea
-    this.app.get('/table/:value', (req, res) => {
-      const value = req.params.value;
-      
-      return res.json({
-        status: 'Dados de tabela',
-        currentClass: this.table.getClassName(),
-        values: this.table.getListOfTuples()[value],
-      });
-    });
-
     //Divisao de paginas
-    this.app.get('/page/:sizeDivison', (req, res) => {
-        const value: string = req.params.sizeDivison;
-        const pages: Page[] = this.pageService.getPagination(Number(value), this.table);
+    this.app.get('/bucket/:divisionPage/:bucketSize', (req, res) => {
+      const divisionPage: number = Number(req.params.divisionPage);
+      const bucketSize: number = Number(req.params.bucketSize);
 
-        return res.json({
-          status: 'Paginas',
-          currentClass: pages[0].getClassName(),
-          values: pages,
-        });
-      });
+      this.mainService.handleCreationPagesWithBuckets(
+        bucketSize,
+        divisionPage,
+        this.table
+      )
 
+      return res.json({
+        status: 'main',
+        currentClass: "TODO",
+        values: {
+          divisionPage,
+          bucketSize
+        },
 
-  }
+      })});
+  };
 
   public start(port: number): void {
     this.app.listen(port, () => console.log(`listening on port ${port}`));
