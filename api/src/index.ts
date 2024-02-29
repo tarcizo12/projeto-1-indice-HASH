@@ -2,8 +2,6 @@ import * as express from 'express';
 import { TableService } from './service/TableService';
 import { Table } from './model/Table';
 import { MainService } from './service/MainService';
-import { Page } from './model/Page';
-
 
 class App {
   private app: express.Application;
@@ -41,6 +39,15 @@ class App {
         },
 
       })});
+
+    this.app.get('/index/:id', (req,res) => {
+      const pageNumber = this.mainService.getPageByIndex(req.params.id)
+
+      return res.json({
+       res:  `a página que o index ${req.params.id} está é a ${pageNumber}`
+      })
+    })
+
   };
 
   public start(port: number): void {
