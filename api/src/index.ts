@@ -2,8 +2,6 @@ import * as express from 'express';
 import { TableService } from './service/TableService';
 import { Table } from './model/Table';
 import { MainService } from './service/MainService';
-import { Page } from './model/Page';
-
 
 class App {
   private app: express.Application;
@@ -20,28 +18,23 @@ class App {
   }
 
   private setupRoutes(): void {
-
     //Divisao de paginas
     this.app.get('/bucket/:divisionPage/:bucketSize', (req, res) => {
       const divisionPage: number = Number(req.params.divisionPage);
       const bucketSize: number = Number(req.params.bucketSize);
 
-      this.mainService.handleCreationPagesWithBuckets(
-        bucketSize,
-        divisionPage,
-        this.table
-      )
+      this.mainService.handleCreationPagesWithBuckets(bucketSize, divisionPage, this.table);
 
       return res.json({
         status: 'main',
-        currentClass: "TODO",
+        currentClass: 'TODO',
         values: {
           divisionPage,
-          bucketSize
+          bucketSize,
         },
-
-      })});
-  };
+      });
+    });
+  }
 
   public start(port: number): void {
     this.app.listen(port, () => console.log(`listening on port ${port}`));
