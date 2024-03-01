@@ -8,6 +8,7 @@ class App {
   private tableService: TableService;
   private mainService: MainService;
   private table: Table;
+  private readonly BUCKET_SIZE: number = 2;
 
   constructor() {
     this.tableService = new TableService();
@@ -19,32 +20,36 @@ class App {
 
   private setupRoutes(): void {
 
-    //Divisao de paginas
-    this.app.get('/bucket/:divisionPage/:bucketSize', (req, res) => {
-      const divisionPage: number = Number(req.params.divisionPage);
-      const bucketSize: number = Number(req.params.bucketSize);
+    //Load de dados
+    this.app.get('/loadData/:pageSize/', (req, res) => {
+      const pageSize: number = Number(req.params.pageSize);
+      const bucketSize: number = this.BUCKET_SIZE;
 
       this.mainService.handleCreationPagesWithBuckets(
         bucketSize,
-        divisionPage,
+        pageSize,
         this.table
       )
 
       return res.json({
-        status: 'main',
-        currentClass: "TODO",
         values: {
-          divisionPage,
-          bucketSize
+          bucketSize,
+          pageSize
         },
-
       })});
 
-    this.app.get('/index/:id', (req,res) => {
-      const pageNumber = this.mainService.getPageByIndex(req.params.id)
+    
+    //Pesquisa por valor
+    this.app.get('/findByValue/:value', (req,res) => {
+      const value: string = req.params.value;
+
+      const pageNumber = this.mainService.getPageByValue(value);
 
       return res.json({
-       res:  `a página que o index ${req.params.id} está é a ${pageNumber}`
+        values: {
+          numberPageOfValue: pageNumber,
+          value: value
+        }
       })
     })
 

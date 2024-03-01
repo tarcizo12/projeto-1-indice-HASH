@@ -20,27 +20,29 @@ export class Bucket extends BaseClass {
     if (!this.bucketIsFull) {
       this.mapping[key] = pageNumber;
       this.setBucketState(Object.keys(this.mapping).length === this.maxSizeOfBucket);
+
     } else {
+      
       if (this.nextBucket === null) {
         this.nextBucket = new Bucket(this.maxSizeOfBucket);
       }
+      
       this.nextBucket.addMapping(key, pageNumber);
     }
   }
 
   getPageNumberByKey(key: string): number | undefined {
-    if (key in this.mapping) {
-      return this.mapping[key];
-    } else if (this.nextBucket !== null) {
-      return this.nextBucket.getPageNumberByKey(key);
-    } else {
-      return undefined;
-    }
+    if (key in this.mapping) { return this.mapping[key] }; 
+    
+    if(this.nextBucket !== null) { return this.nextBucket.getPageNumberByKey(key) }; 
+    
+    return undefined;
   }
 
 
   getSize(): number {
     let size = Object.keys(this.mapping).length;
+
     if (this.nextBucket !== null) {
       size += this.nextBucket.getSize();
     }
