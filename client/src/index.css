@@ -14,7 +14,7 @@ body {
   flex-direction: column;
   align-items: left;
   justify-content:center;
-  margin: 25vh 45vh 25vh 45vh;
+  margin: 20vh 50vh;
   padding: 3rem;
   background-color: white;
   border-radius: 1rem;
@@ -23,14 +23,23 @@ body {
 
 .TituloForm{
   margin: 0 0 2rem 0;
+  text-align: center;
 }
 
 .BotaoForm{
   margin-top: 1rem;
+  width: fit-content;
+  height: 2rem;
+}
+
+.BotaoPagina{
+  display: flex;
+  justify-content: center;
+
 }
 
 .CampoInput{
-  width: 80%;
+  width: 100%;
   height: 1.5rem;
   margin-bottom: 1rem;
 }
