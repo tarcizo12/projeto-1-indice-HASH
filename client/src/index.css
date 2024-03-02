@@ -10,6 +10,7 @@ body {
 
 .container{
   container-type: normal;
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: left;
@@ -26,6 +27,16 @@ body {
   text-align: center;
 }
 
+.TituloStats{
+  margin: 2rem 0 1rem 0;
+  color: #002A53;
+}
+
+.TextoTela{
+  margin: 0 0 1rem 0;
+  color: #002A53;
+}
+
 .BotaoForm{
   margin-top: 1rem;
   width: fit-content;
@@ -35,7 +46,6 @@ body {
 .BotaoPagina{
   display: flex;
   justify-content: center;
-
 }
 
 .CampoInput{
@@ -48,4 +58,41 @@ body {
   font-size: 1rem;
   color: black;
   margin-bottom: 1rem;
+}
+
+.StatisticsElement{
+  /*background-image: url('../public/star8.png'
+  );
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;*/
+  background-color: #002D62;
+  border-radius: 1rem;
+  margin-bottom: 1rem;
+  position: absolute;
+  top: -76px;
+  right:-10%;
+  width: 10rem;
+  height: 10rem;
+  padding: 0.4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 100px;
+}
+
+.TextoStats{
+  margin: 0.4rem 0 0 0;
+  text-align: center;
+  color: white;
+  font-weight: 700;
+  font-size: 1.125rem;
+}
+
+.TabelaPagina{
+  margin-top: 2rem;
+}
+
+.TabelaPagina, td{
+  border: 1px solid;
 }
