@@ -4,12 +4,16 @@ export class Bucket extends BaseClass {
   private maxSizeOfBucket: number;
   private bucketIsFull: boolean = false;
   private nextBucket: Bucket | null;
+  private numberOfOverflows: number;
+  private numberOfColisions: number;
 
   constructor(sizeBucket: number) {
     super();
     this.mapping = {};
     this.maxSizeOfBucket = sizeBucket;
     this.nextBucket = null;
+    this.numberOfColisions = 0;
+    this.numberOfOverflows = 0;
   }
 
   getMapping(): Record<string, number> {
@@ -26,7 +30,7 @@ export class Bucket extends BaseClass {
       if (this.nextBucket === null) {
         this.nextBucket = new Bucket(this.maxSizeOfBucket);
       }
-      
+
       this.nextBucket.addMapping(key, pageNumber);
     }
   }
@@ -39,7 +43,6 @@ export class Bucket extends BaseClass {
     return undefined;
   }
 
-
   getSize(): number {
     let size = Object.keys(this.mapping).length;
 
@@ -51,9 +54,11 @@ export class Bucket extends BaseClass {
 
   setBucketState(state: boolean): void {
     this.bucketIsFull = state;
-  }
+  };
 
   getBucketState(): boolean {
     return this.bucketIsFull;
-  }
+  };
+
+  getNextBucket(): Bucket{return this.nextBucket}
 }

@@ -53,5 +53,9 @@ export class MainService {
         const hasValue = this.hashFunction.hashT(value, this.numberMaxOfBuckets);
 
         return this.buckets[hasValue].getPageNumberByKey(value)
-    }
+    };
+
+    getAllBucketsCreateds(): Bucket[]{return this.buckets}
+
+    getPageById(pageId: number): Page{return this.pages[pageId]};
 }

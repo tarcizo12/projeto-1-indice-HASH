@@ -2,10 +2,13 @@ import * as express from 'express';
 import { TableService } from './service/TableService';
 import { Table } from './model/Table';
 import { MainService } from './service/MainService';
+import { Page } from './model/Page';
+import { StatisticsService } from './service/StaticsService';
 
 class App {
   private app: express.Application;
   private tableService: TableService;
+  private statiticsService: StatisticsService;
   private mainService: MainService;
   private table: Table;
   private readonly BUCKET_SIZE: number = 2;
@@ -14,6 +17,7 @@ class App {
     this.tableService = new TableService();
     this.mainService = new MainService();
     this.table = this.tableService.getTableOfTXT();
+    this.statiticsService = new StatisticsService();
     this.app = express();
     this.setupRoutes();
   }
@@ -31,6 +35,11 @@ class App {
         this.table
       )
 
+      //Ainda fazendo
+      // this.statiticsService.calculateStatics(
+      //   this.mainService.getAllBucketsCreateds()
+      // )
+      
       return res.json({
         values: {
           bucketSize,
@@ -51,6 +60,20 @@ class App {
           value: value
         }
       })
+    })
+
+    //Pesquisa pagina por id da pagina
+    this.app.get('/page/:pageIndex', (req,res) => {
+      const pageId: number = Number(req.params.pageIndex);
+
+      const page: Page = this.mainService.getPageById(pageId);
+      
+      return res.json({
+        values: {
+          page: page
+        }
+      })
+
     })
 
   };
