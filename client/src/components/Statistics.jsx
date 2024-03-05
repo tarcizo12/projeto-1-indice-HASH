@@ -1,23 +1,16 @@
-//import React, { useState, useEffect } from "react";
+import React from "react";
 import "../index.css";
-import { useSpring, animated } from 'react-spring';
 
 function Statistics(props) {
-
-    const animate = useSpring({
-        from: { transform: 'scale(0)' },
-        to: { transform: 'scale(1)' },
-    });
-
-    
+    console.log('Props recebidas em Statistics:', props); // Adicionado para debug
 
     return (
-        <animated.div className="StatisticsElement" style={animate}>
+        <div className="StatisticsElement">
             <h2 className="TextoStats">Colisões:</h2>
-            <p className="TextoStats">{props.colisoes}</p>
-            <h2 className="TextoStats">Overflows: </h2>
-            <p className="TextoStats">{props.overflow}</p>
-        </animated.div>
+            <p className="TextoStats">{props.numberOfColisions}</p>
+            <h2 className="TextoStats">Overflows:</h2>
+            <p className="TextoStats">{props.numberOfOverflows}</p>
+        </div>
     );
 }
 

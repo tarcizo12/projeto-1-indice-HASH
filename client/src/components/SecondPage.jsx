@@ -23,6 +23,7 @@ function SecondPage() {
             try {
                 const response = await fetch('http://localhost:3000/statics');
                 const data = await response.json();
+
                 console.log('Dados recebidos:', data); // Adicionado para debug
                 setStats(data.values.statics);
             } catch (error) {
@@ -31,7 +32,7 @@ function SecondPage() {
         };
 
         fetchStats();
-    }, []); // Executa apenas uma vez ao montar o componente
+    }, []);
 
     console.log('Estatísticas no estado:', stats); // Adicionado para debug
 
@@ -53,15 +54,17 @@ function SecondPage() {
             }
         } catch (error) {
             console.error('Erro ao enviar solicitação:', error);
-        }};
+        }
+    };
 
     return (
         <div className="container">
-            <Statistics colisoes={stats.colisoes} overflow={stats.overflow}/>
+        <Statistics numberOfColisions={stats.numberOfColisions} numberOfOverflows={stats.numberOfOverflows} />
+
             <h1 className="TituloForm">Pesquisa na base de dados</h1>
             <Label descricao="Escolha um elemento da base para ser pesquisado" />
             <Input texto=" Insira o elemento para pesquisa" value={value}
-        onChange={(e) => setValue(e.target.value)} />
+                onChange={(e) => setValue(e.target.value)} />
             <div className="BotaoPagina">
                 <Button label="Pesquisar" onClick={handleSearchByValue} />
             </div>

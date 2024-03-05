@@ -51,7 +51,7 @@ class App {
           this.table
       );
       
-      console.log("LOAD DE DADOS OKj")
+      console.log("LOAD DE DADOS OK")
       return res.json({
           values: {
               bucketSize,
