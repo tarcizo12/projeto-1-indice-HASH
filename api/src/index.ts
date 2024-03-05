@@ -43,23 +43,27 @@ class App {
         },
       })});
 
-    //Pesquisa por valor
+    //Estatisticas
     this.app.get('/statics', (req,res) => {
 
       // Ainda fazendo
-      this.statiticsService.calculateStatics(
-        this.mainService.getAllBucketsCreateds()
-      )
+      this.statiticsService.calculateStatics( this.mainService.getAllBucketsCreateds() );
       
-      const statics: Statistics = this.statiticsService.getStaticsOfLoad();
+      const currentValueOfOverflowRate: number = this.statiticsService.calculateOverflowRate(
+        this.mainService.getAllBucketsCreateds().length
+      );
+
+      const currentValueOfCollisionsRate: number = this.statiticsService.calculateCollisionRate(
+        this.table.getListOfTuples().length
+      );
 
       return res.json({
         values: {
-          statics: statics,
+          overflowRate: currentValueOfOverflowRate,
+          collisionsRate: currentValueOfCollisionsRate,
         }
       })
     })
-
 
     
     //Pesquisa por valor
