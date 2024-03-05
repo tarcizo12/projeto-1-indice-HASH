@@ -21,7 +21,7 @@ function SecondPage() {
     useEffect(() => {
         const fetchStats = async () => {
             try {
-                const response = await fetch('http://localhost:3000/statics');
+                const response = await fetch('http://localhost:3001/statics');
                 const data = await response.json();
 
                 console.log('Dados recebidos:', data); // Adicionado para debug
@@ -38,17 +38,17 @@ function SecondPage() {
 
     const handleSearchByValue = async () => {
         try {
-            const response = await fetch(`http://localhost:3000/findByValue/`, {
-                method: 'POST',
+            const response = await fetch(`http://localhost:3001/findByValue/${value}`, {
+                method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ value }),
             });
-
+    
             if (response.ok) {
                 const result = await response.json();
                 setPage(result.values.page);
+                console.log('Dados recebidos:', result);
             } else {
                 console.error('Erro ao enviar solicitação:', response.statusText);
             }
@@ -59,7 +59,7 @@ function SecondPage() {
 
     return (
         <div className="container">
-        <Statistics numberOfColisions={stats.numberOfColisions} numberOfOverflows={stats.numberOfOverflows} />
+            <Statistics numberOfColisions={stats.numberOfColisions} numberOfOverflows={stats.numberOfOverflows} />
 
             <h1 className="TituloForm">Pesquisa na base de dados</h1>
             <Label descricao="Escolha um elemento da base para ser pesquisado" />
