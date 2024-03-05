@@ -49,9 +49,13 @@ export class MainService {
         this.handleCreationBucket(bucketSize);
     };
 
-    getPageByIndex(id: string): number {
-        const hashT = this.hashFunction.hashT(id, this.numberMaxOfBuckets);
-        console.log(this.buckets[hashT])
-        return this.buckets[hashT].getPageNumberByKey(id)
-    }
+    getPageByValue(value: string): number {
+        const hasValue = this.hashFunction.hashT(value, this.numberMaxOfBuckets);
+
+        return this.buckets[hasValue].getPageNumberByKey(value)
+    };
+
+    getAllBucketsCreateds(): Bucket[]{return this.buckets}
+
+    getPageById(pageId: number): Page{return this.pages[pageId]};
 }
