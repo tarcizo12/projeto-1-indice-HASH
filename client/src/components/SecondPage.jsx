@@ -16,8 +16,10 @@ function SecondPage() {
 
     const [value, setValue] = useState(""); // Defina o valor desejado
     const [page, setPage] = useState(null);
+    const [pageNumber , setPageNumber] = useState();
 
     const [stats, setStats] = useState({ collisionsRate: 0, overflowRate: 0 });
+
     useEffect(() => {
         const fetchStats = async () => {
             try {
@@ -37,28 +39,38 @@ function SecondPage() {
         fetchStats();
     }, []);
 
-    console.log('Estatísticas no estado:', stats); // Adicionado para debug
+    useEffect(()=>{
+        if(pageNumber != undefined){
+            handleSearchPage(pageNumber);
+        }
+    },[pageNumber])
+
+    const handleSearchPage = (pageNumber)  =>{
+        console.log("Valor atualizado da pagina->", pageNumber)
+    }
 
     const handleSearchByValue = async () => {
         try {
-            const response = await fetch(`http://localhost:3000/findByValue/`, {
-                method: 'POST',
+            const response = await fetch(`http://localhost:3000/findByValue/${value}`, {
+                method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ value }),
             });
-
+    
             if (response.ok) {
                 const result = await response.json();
-                setPage(result.values.page);
+                const pageNumber =  result.values.numberPageOfValue
+                setPageNumber(pageNumber);
             } else {
                 console.error('Erro ao enviar solicitação:', response.statusText);
             }
         } catch (error) {
-            console.error('Erro ao enviar solicitação:', error);
+            console.error('Erro na requisicao:', error);
         }
     };
+    
+    
 
     return (
         <div className="container">
@@ -66,8 +78,12 @@ function SecondPage() {
 
             <h1 className="TituloForm">Pesquisa na base de dados</h1>
             <Label descricao="Escolha um elemento da base para ser pesquisado" />
-            <Input texto=" Insira o elemento para pesquisa" value={value}
-                onChange={(e) => setValue(e.target.value)} />
+            {pageNumber != undefined  && <Label descricao={"Valor esta localizado na pagina: " + pageNumber}   />}
+            <Input
+                texto="Insira o valor"
+                value={value}
+                onChange={setValue}
+            />
             <div className="BotaoPagina">
                 <Button label="Pesquisar" onClick={handleSearchByValue} />
             </div>
