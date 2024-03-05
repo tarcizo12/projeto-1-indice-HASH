@@ -7,9 +7,9 @@ function Statistics(props) {
     return (
         <div className="StatisticsElement">
             <h2 className="TextoStats">Colisões:</h2>
-            <p className="TextoStats">{props.numberOfColisions}</p>
+            <p className="TextoStats">{`${props.numberOfColisions}%`}</p>
             <h2 className="TextoStats">Overflows:</h2>
-            <p className="TextoStats">{props.numberOfOverflows}</p>
+            <p className="TextoStats">{`${props.numberOfOverflows}%`}</p>
         </div>
     );
 }

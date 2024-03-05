@@ -52,7 +52,7 @@ class App {
       );
       
       console.log("LOAD DE DADOS OK")
-      
+
       return res.json({
           values: {
               bucketSize,
@@ -78,8 +78,8 @@ class App {
 
       return res.json({
         values: {
-          overflowRate: currentValueOfOverflowRate,
-          collisionsRate: currentValueOfCollisionsRate,
+          overflowRate: Number((currentValueOfOverflowRate*100).toFixed(2)),
+          collisionsRate: Number((currentValueOfCollisionsRate*100).toFixed(2)),
         }
       })
     })
