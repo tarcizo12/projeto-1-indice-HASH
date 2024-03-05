@@ -2,10 +2,6 @@ import { Tuple } from "../model/Tuple";
 import { FileReader } from "../model/FileReader";
 
 export class TupleService{
-    //Documento para testes
-    //private PATH_TXT: string = 'src/data/txt_para_testes.txt'
-    
-    //Documento original
     private PATH_TXT: string = 'src/data/words_alpha.txt'
 
     getValuesTxt():  Tuple[] {

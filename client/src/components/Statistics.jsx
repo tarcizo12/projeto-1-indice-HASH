@@ -18,6 +18,10 @@ function Statistics(props) {
             <h2 className="TextoStats">Overflows: </h2>
             <p className="TextoStats">{props.numberOfOverflows}</p>
         </animated.div>
+            <p className="TextoStats">{`${props.numberOfColisions}%`}</p>
+            <h2 className="TextoStats">Overflows:</h2>
+            <p className="TextoStats">{`${props.numberOfOverflows}%`}</p>
+        </div>
     );
 }
 
