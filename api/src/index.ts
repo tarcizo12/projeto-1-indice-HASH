@@ -30,33 +30,36 @@ class App {
   private setupMiddleware(): void {
     // Configurar o middleware cors para permitir solicitações apenas do http://localhost:3001
     const corsOptions = {
-      origin: 'http://localhost:3001',
+      origin: 'http://localhost:4000',
       optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
     };
 
     this.app.use(cors(corsOptions));
+    this.app.use(express.json()); // Adicionado o middleware para analisar o corpo da requisição JSON
   }
 
   private setupRoutes(): void {
 
-    //Load de dados
-    this.app.get('/loadData/:pageSize/', (req, res) => {
-      const pageSize: number = Number(req.params.pageSize);
+    this.app.post('/loadData', (req, res) => {
+      const pageSize: number = req.body.pageSize;
+      
       const bucketSize: number = this.BUCKET_SIZE;
-
+  
       this.mainService.handleCreationPagesWithBuckets(
-        bucketSize,
-        pageSize,
-        this.table
-      )
-
-      return res.json({
-        values: {
           bucketSize,
-          pageSize
-        },
-      })});
-
+          pageSize,
+          this.table
+      );
+      
+      console.log("LOAD DE DADOS OK")
+      return res.json({
+          values: {
+              bucketSize,
+              pageSize
+          },
+      });
+  });
+  
     //Pesquisa por valor
     this.app.get('/statics', (req,res) => {
 
