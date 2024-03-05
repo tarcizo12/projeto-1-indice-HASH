@@ -53,7 +53,7 @@ function SecondPage() {
             }
         } catch (error) {
             console.error('Erro ao enviar solicitação:', error);
-        };
+        }};
 
     return (
         <div className="container">
