@@ -34,4 +34,29 @@ export class StatisticsService {
         this.staticsOfLoad.setNumberOfOverflows(totalNextBucketsOnOverflow);
         this.staticsOfLoad.setNumberOfColisions(totalColisions)
     }
+
+
+    calculateCollisionRate(tableSize: number): number {
+
+        if (tableSize === 0) {
+            return 0; // Evita divisão por zero
+        };
+
+        const currentTotalCollisions = this.getStaticsOfLoad().getNumberOfColisions();
+
+        return currentTotalCollisions / tableSize;
+    };
+
+
+    // Função para calcular a taxa de overflows
+    calculateOverflowRate(bucketsSize: number): number {
+        if (bucketsSize === 0) {
+            return 0; // Evita divisão por zero
+        }
+        
+        const currentTotalOverFlows = this.getStaticsOfLoad().getNumberOfOverflows();
+
+        return currentTotalOverFlows / bucketsSize;
+    }
+
 }
