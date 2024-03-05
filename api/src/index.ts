@@ -1,4 +1,5 @@
-import * as express from 'express';
+import express from 'express';
+import cors from 'cors';
 import { TableService } from './service/TableService';
 import { Table } from './model/Table';
 import { MainService } from './service/MainService';
@@ -13,14 +14,27 @@ class App {
   private mainService: MainService;
   private table: Table;
   private readonly BUCKET_SIZE: number = 2;
-
+  
+  
   constructor() {
     this.tableService = new TableService();
     this.mainService = new MainService();
     this.table = this.tableService.getTableOfTXT();
     this.statiticsService = new StatisticsService();
     this.app = express();
+    this.setupMiddleware();
     this.setupRoutes();
+  }
+  
+  
+  private setupMiddleware(): void {
+    // Configurar o middleware cors para permitir solicitações apenas do http://localhost:3001
+    const corsOptions = {
+      origin: 'http://localhost:3001',
+      optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+    };
+
+    this.app.use(cors(corsOptions));
   }
 
   private setupRoutes(): void {
@@ -76,6 +90,7 @@ class App {
       })
     })
 
+
     //Pesquisa pagina por id da pagina
     this.app.get('/page/:pageIndex', (req,res) => {
       const pageId: number = Number(req.params.pageIndex);
@@ -90,7 +105,7 @@ class App {
 
     })
 
-  };
+  }
 
   public start(port: number): void {
     this.app.listen(port, () => console.log(`listening on port ${port}`));

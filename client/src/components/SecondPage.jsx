@@ -11,46 +11,62 @@ import Statistics from "./Statistics";
 //objeto vai conter as tuplas
 //cada tupla e composta de dois atributos: line e valueOfData
 
-const fetchDataFromBackend = async (url, setDataCallback) => {
-    try {
-        const response = await fetch(url);
-        if (response.ok) {
-            const jsonData = await response.json();
-            setDataCallback(jsonData);
-        } else {
-            console.error("Erro ao buscar dados do backend");
-        }
-    } catch (error) {
-        console.error("Erro na requisição:", error);
-    }
-};
 
 function SecondPage() {
-    const [data, setData] = useState([]);
-    const [numeroColisoes, setNumeroColisoes] = useState([]);
-    const [numeroOverflows, setNumeroOverflows] = useState([]);
 
+    const [value, setValue] = useState(""); // Defina o valor desejado
+    const [page, setPage] = useState(null);
+
+    const [stats, setStats] = useState({ colisoes: 0, overflow: 0 });
     useEffect(() => {
-        const fetchData = async () => {
-            // Substitua 'sua_url_data' pela URL correta para cada chamada
-            await fetchDataFromBackend("sua_url_data", setData);
-            await fetchDataFromBackend("sua_url_colisoes", setNumeroColisoes);
-            await fetchDataFromBackend("sua_url_overflows", setNumeroOverflows);
+        const fetchStats = async () => {
+            try {
+                const response = await fetch('http://localhost:3000/statics');
+                const data = await response.json();
+                console.log('Dados recebidos:', data); // Adicionado para debug
+                setStats(data.values.statics);
+            } catch (error) {
+                console.error('Erro ao buscar estatísticas:', error);
+            }
         };
 
-        fetchData(); // Chama a função de busca de dados ao carregar a página
-    }, []); // O segundo argumento vazio [] garante que o useEffect seja chamado apenas uma vez no carregamento inicial
+        fetchStats();
+    }, []); // Executa apenas uma vez ao montar o componente
+
+    console.log('Estatísticas no estado:', stats); // Adicionado para debug
+
+    const handleSearchByValue = async () => {
+        try {
+            const response = await fetch(`http://localhost:3000/findByValue/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ value }),
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                setPage(result.values.page);
+            } else {
+                console.error('Erro ao enviar solicitação:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Erro ao enviar solicitação:', error);
+        };
+
     return (
         <div className="container">
-                <Statistics colisoes={numeroColisoes} overflow={numeroOverflows}/>
-                <h1 className="TituloForm">Pesquisa na base de dados</h1>
-                <Label descricao="Escolha um elemento da base para ser pesquisado" />
-                <Input texto=" Insira o elemento para pesquisa" />
-                <div className="BotaoPagina">
-                    <Button label="Pesquisar" />
-                </div>
-                <Table data={data} />
+            <Statistics colisoes={stats.colisoes} overflow={stats.overflow}/>
+            <h1 className="TituloForm">Pesquisa na base de dados</h1>
+            <Label descricao="Escolha um elemento da base para ser pesquisado" />
+            <Input texto=" Insira o elemento para pesquisa" value={value}
+        onChange={(e) => setValue(e.target.value)} />
+            <div className="BotaoPagina">
+                <Button label="Pesquisar" onClick={handleSearchByValue} />
             </div>
+            {page && <Table data={page.data} />} {/* Assumindo que a página tem uma propriedade 'data' */}
+        </div>
     );
 }
 

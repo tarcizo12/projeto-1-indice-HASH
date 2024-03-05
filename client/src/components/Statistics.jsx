@@ -1,7 +1,6 @@
-import React from "react";
+//import React, { useState, useEffect } from "react";
 import "../index.css";
 import { useSpring, animated } from 'react-spring';
-
 
 function Statistics(props) {
 
@@ -10,14 +9,16 @@ function Statistics(props) {
         to: { transform: 'scale(1)' },
     });
 
+    
+
     return (
-        <animated.div className="StatisticsElement " style={animate}>
+        <animated.div className="StatisticsElement" style={animate}>
             <h2 className="TextoStats">Colisões:</h2>
             <p className="TextoStats">{props.colisoes}</p>
-            <p className="TextoStats">Overflows: </p>
-            <h2 className="TextoStats">{props.overflow}</h2>
+            <h2 className="TextoStats">Overflows: </h2>
+            <p className="TextoStats">{props.overflow}</p>
         </animated.div>
     );
-};
+}
 
 export default Statistics;
