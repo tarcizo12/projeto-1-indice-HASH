@@ -36,6 +36,16 @@ class App {
         this.table
       )
 
+      return res.json({
+        values: {
+          bucketSize,
+          pageSize
+        },
+      })});
+
+    //Pesquisa por valor
+    this.app.get('/statics', (req,res) => {
+
       // Ainda fazendo
       this.statiticsService.calculateStatics(
         this.mainService.getAllBucketsCreateds()
@@ -45,11 +55,11 @@ class App {
 
       return res.json({
         values: {
-          bucketSize,
-          pageSize
-        },
-        statics: statics,
-      })});
+          statics: statics,
+        }
+      })
+    })
+
 
     
     //Pesquisa por valor
