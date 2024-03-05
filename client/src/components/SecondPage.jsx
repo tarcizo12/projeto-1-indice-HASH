@@ -87,7 +87,7 @@ function SecondPage() {
             <div className="BotaoPagina">
                 <Button label="Pesquisar" onClick={handleSearchByValue} />
             </div>
-            {page && <Table data={page.data} />} {/* Assumindo que a página tem uma propriedade 'data' */}
+            {page && <Table data={page.tuples} />} {/* Assumindo que a página tem uma propriedade 'data' */}
         </div>
     );
 }
