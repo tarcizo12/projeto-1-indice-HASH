@@ -4,16 +4,16 @@ export class Bucket extends BaseClass {
   private maxSizeOfBucket: number;
   private bucketIsFull: boolean = false;
   private nextBucket: Bucket | null;
-  private numberOfOverflows: number;
-  private numberOfColisions: number;
+  // private numberOfOverflows: number;
+  // private numberOfColisions: number;
 
   constructor(sizeBucket: number) {
     super();
     this.mapping = {};
     this.maxSizeOfBucket = sizeBucket;
     this.nextBucket = null;
-    this.numberOfColisions = 0;
-    this.numberOfOverflows = 0;
+    // this.numberOfColisions = 0;
+    // this.numberOfOverflows = 0;
   }
 
   getMapping(): Record<string, number> {

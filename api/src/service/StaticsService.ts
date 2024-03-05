@@ -8,19 +8,30 @@ export class StatisticsService {
         this.staticsOfLoad = new Statistics();
     }
 
-    // Getter for staticsOfLoad
     getStaticsOfLoad(): Statistics {
         return this.staticsOfLoad;
     };
 
-    // Setter for staticsOfLoad
+
     setStaticsOfLoad(statistics: Statistics): void {
         this.staticsOfLoad = statistics;
     };
 
-    calculateStatics(bucketsOfLoad: Bucket[]): void{
-        bucketsOfLoad.forEach((bucket: Bucket)=>{
-            console.log(bucket.getNextBucket())
-        })
+    calculateStatics(bucketsOfLoad: Bucket[]): void {
+        let totalNextBucketsOnOverflow = 0;
+        let totalColisions = 0;
+
+        bucketsOfLoad.forEach((bucket: Bucket) => {
+            let currentBucket = bucket.getNextBucket();
+
+            while (currentBucket !== null) {
+                totalNextBucketsOnOverflow++;
+                totalColisions += currentBucket.getSize();
+                currentBucket = currentBucket.getNextBucket();
+            };
+        });
+
+        this.staticsOfLoad.setNumberOfOverflows(totalNextBucketsOnOverflow);
+        this.staticsOfLoad.setNumberOfColisions(totalColisions)
     }
 }

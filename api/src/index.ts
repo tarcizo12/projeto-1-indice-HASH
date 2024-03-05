@@ -4,6 +4,7 @@ import { Table } from './model/Table';
 import { MainService } from './service/MainService';
 import { Page } from './model/Page';
 import { StatisticsService } from './service/StaticsService';
+import { Statistics } from 'model/Statistics';
 
 class App {
   private app: express.Application;
@@ -35,16 +36,19 @@ class App {
         this.table
       )
 
-      //Ainda fazendo
-      // this.statiticsService.calculateStatics(
-      //   this.mainService.getAllBucketsCreateds()
-      // )
+      // Ainda fazendo
+      this.statiticsService.calculateStatics(
+        this.mainService.getAllBucketsCreateds()
+      )
       
+      const statics: Statistics = this.statiticsService.getStaticsOfLoad();
+
       return res.json({
         values: {
           bucketSize,
           pageSize
         },
+        statics: statics,
       })});
 
     
