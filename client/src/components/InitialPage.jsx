@@ -7,11 +7,11 @@ import Label from "./Label";
 import "../index.css";
 
 function InitialPage() {
-    const [pageSize, setPageSize] = useState(10); // Corrigir input
+    const [pageSize, setPageSize] = useState(); // Corrigir input
     const navigate = useNavigate();
 
     const handlePageSizeChange = (e) => {
-        setPageSize(e.target.value);
+        setPageSize(e);
     };
 
     const handleClick = async () => {

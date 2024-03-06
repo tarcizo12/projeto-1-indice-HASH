@@ -14,8 +14,8 @@ function Table (props) {
         <tbody>
         {props.data.map((item, index) => (
                     <tr key={index}>
-                        <td>{item.attribute}</td>
-                        <td>{item.value}</td>
+                        <td>{item.line}</td>
+                        <td>{item.valueOfData}</td>
                     </tr>
                 ))}
         </tbody>

@@ -28,20 +28,20 @@ class App {
   
   
   private setupMiddleware(): void {
-    // Configurar o middleware cors para permitir solicitações apenas do http://localhost:3001
+    
     const corsOptions = {
       origin: 'http://localhost:4000',
-      optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+      optionsSuccessStatus: 200, 
     };
 
     this.app.use(cors(corsOptions));
-    this.app.use(express.json()); // Adicionado o middleware para analisar o corpo da requisição JSON
+    this.app.use(express.json()); 
   }
 
   private setupRoutes(): void {
 
     this.app.post('/loadData', (req, res) => {
-      const pageSize: number = req.body.pageSize;
+      const pageSize: number = Number(req.body.pageSize);
       
       const bucketSize: number = this.BUCKET_SIZE;
   
