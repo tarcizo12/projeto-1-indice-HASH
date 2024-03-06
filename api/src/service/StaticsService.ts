@@ -22,6 +22,8 @@ export class StatisticsService {
         let totalColisions = 0;
 
         bucketsOfLoad.forEach((bucket: Bucket) => {
+            console.log(bucket)
+            
             let currentBucket = bucket.getNextBucket();
 
             while (currentBucket !== null) {

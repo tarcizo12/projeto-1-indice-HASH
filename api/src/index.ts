@@ -41,7 +41,7 @@ class App {
   private setupRoutes(): void {
 
     this.app.post('/loadData', (req, res) => {
-      const pageSize: number = req.body.pageSize;
+      const pageSize: number = Number(req.body.pageSize);
       
       const bucketSize: number = this.BUCKET_SIZE;
   
