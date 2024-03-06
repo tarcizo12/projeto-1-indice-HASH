@@ -45,7 +45,7 @@ export class Bucket extends BaseClass {
 
   getSize(): number {
     let size = Object.keys(this.mapping).length;
-
+    
     return size;
   }
 

@@ -23,7 +23,7 @@ function SecondPage() {
     useEffect(() => {
         const fetchStats = async () => {
             try {
-                const response = await fetch('http://localhost:3001/statics');
+                const response = await fetch('http://localhost:3000/statics');
                 const data = await response.json();
 
                 console.log('Dados recebidos:', data); // Adicionado para debug
