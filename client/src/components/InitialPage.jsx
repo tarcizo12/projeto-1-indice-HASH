@@ -16,7 +16,7 @@ function InitialPage() {
 
     const handleClick = async () => {
     
-        const url = 'http://localhost:3000/loadData';
+        const url = 'http://localhost:3001/loadData';
         const config = {
             method: 'POST',
             headers: {
