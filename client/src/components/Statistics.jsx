@@ -14,7 +14,7 @@ function Statistics(props) {
     return (
         <animated.div className="StatisticsElement" style={animate}>
             <h2 className="TextoStats">Colisões:</h2>
-            <p className="TextoStats">{`${props.numberOfColisions}%`}</p>
+            <p className="TextoStats">{`${props.numberOfCollisions}%`}</p>
             <h2 className="TextoStats">Overflows:</h2>
             <p className="TextoStats">{`${props.numberOfOverflows}%`}</p>
         </animated.div>

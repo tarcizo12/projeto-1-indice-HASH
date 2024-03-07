@@ -2,7 +2,7 @@ import { Tuple } from "../model/Tuple";
 import { FileReader } from "../model/FileReader";
 
 export class TupleService{
-    private PATH_TXT: string = 'src/data/txt_para_testes.txt'
+    private PATH_TXT: string = 'src/data/words_alpha.txt' 
 
     getValuesTxt():  Tuple[] {
         const fileReader = new FileReader(this.getPath());
@@ -19,7 +19,7 @@ export class TupleService{
         
         
         return words
-    };
+    }
 
     getPath(): string{ return this.PATH_TXT}
-};
+}

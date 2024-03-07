@@ -10,19 +10,19 @@ export class StatisticsService {
 
     getStaticsOfLoad(): Statistics {
         return this.staticsOfLoad;
-    };
+    }
 
 
     setStaticsOfLoad(statistics: Statistics): void {
         this.staticsOfLoad = statistics;
-    };
+    }
 
     calculateStatics(bucketsOfLoad: Bucket[]): void {
         let totalNextBucketsOnOverflow = 0;
         let totalColisions = 0;
 
         bucketsOfLoad.forEach((bucket: Bucket) => {
-            console.log(bucket)
+            //console.log(bucket)
             
             let currentBucket = bucket.getNextBucket();
 
@@ -30,7 +30,7 @@ export class StatisticsService {
                 totalNextBucketsOnOverflow++;
                 totalColisions += currentBucket.getSize();
                 currentBucket = currentBucket.getNextBucket();
-            };
+            }
         });
 
         this.staticsOfLoad.setNumberOfOverflows(totalNextBucketsOnOverflow);
@@ -42,12 +42,12 @@ export class StatisticsService {
 
         if (tableSize === 0) {
             return 0; // Evita divisão por zero
-        };
+        }
 
         const currentTotalCollisions = this.getStaticsOfLoad().getNumberOfColisions();
 
         return currentTotalCollisions / tableSize;
-    };
+    }
 
 
     // Função para calcular a taxa de overflows
