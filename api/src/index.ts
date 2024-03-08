@@ -14,7 +14,6 @@ class App {
   private table: Table;
   private readonly BUCKET_SIZE: number = 2;
   
-  
   constructor() {
     this.tableService = new TableService();
     this.mainService = new MainService();
@@ -41,7 +40,7 @@ class App {
 
     this.app.post('/loadData', (req, res) => {
       const pageSize: number = Number(req.body.pageSize);
-      
+      console.log(req.body)
       const bucketSize: number = this.BUCKET_SIZE;
   
       this.mainService.handleCreationPagesWithBuckets(
@@ -106,9 +105,19 @@ class App {
       const page: Page = this.mainService.getPageById(pageId);
       
       return res.json({
-        values: {
-          page: page
-        }
+        values: { page: page }
+      })
+
+    })
+
+    //Pesquisa por table scan
+    this.app.get('/tableScan/:value', (req,res) => {
+      const value: string = req.params.value;
+
+      const visitedPages = this.mainService.getPagesVisitedByTableScan( value )
+
+      return res.json({
+        values: { visitedPages: visitedPages }
       })
 
     })

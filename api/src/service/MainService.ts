@@ -64,4 +64,20 @@ export class MainService {
         this.pages = [];
         this.numberMaxOfBuckets = 0;
     }
+    getPagesVisitedByTableScan(value: string): number{ 
+        
+        let visitedPage: number = 0;
+
+        for (const page of this.pages) {
+            visitedPage++
+
+            const indexFound: Tuple = page.getTuples().find(t => t.getValueOfData() === value)
+            
+            if(indexFound != undefined){
+                return visitedPage
+            }
+        }
+
+        return null
+    }
 }
