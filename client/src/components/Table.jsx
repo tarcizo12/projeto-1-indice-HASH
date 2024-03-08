@@ -1,5 +1,5 @@
-import React from "react";
-import "../index.css";
+import React from 'react';
+import '../index.css';
 
 function Table(props) {
   return (
@@ -14,7 +14,9 @@ function Table(props) {
         {props.data.map((item, index) => (
           <tr
             key={index}
-            className={item.valueOfData === props.value ? "highlighted-row" : ""}
+            className={
+              item.valueOfData === props.value ? 'highlighted-row' : ''
+            }
           >
             <td>{item.line}</td>
             <td>{item.valueOfData}</td>

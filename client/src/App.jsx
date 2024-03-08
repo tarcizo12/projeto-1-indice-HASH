@@ -1,9 +1,14 @@
-import React from "react";
-import { useState } from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import InitialPage from "./components/InitialPage";
-import SecondPage from "./components/SecondPage";
-import "./index.css";
+import React from 'react';
+import { useState } from 'react';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from 'react-router-dom';
+import InitialPage from './components/InitialPage';
+import SecondPage from './components/SecondPage';
+import './index.css';
 
 function App() {
   const [redirectToSecondPage, setRedirectToSecondPage] = useState(false);

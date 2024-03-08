@@ -1,7 +1,6 @@
-import { BaseClass } from "../utils/BaseClass";
+import { BaseClass } from '../utils/BaseClass';
 
 export class Hash extends BaseClass {
-
   public hashT(text: string, totalBuckets: number): number {
     let hashC: number = 5381;
     const primeNumber: number = 89; // Pode escolher outro número primo
@@ -11,6 +10,6 @@ export class Hash extends BaseClass {
     }
 
     // Normalizar o valor do hash com base na quantidade total de buckets
-    return (hashC % totalBuckets + totalBuckets) % totalBuckets;
+    return ((hashC % totalBuckets) + totalBuckets) % totalBuckets;
   }
 }

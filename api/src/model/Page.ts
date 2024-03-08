@@ -2,10 +2,12 @@ import { Tuple } from './Tuple';
 import { BaseClass } from '../utils/BaseClass';
 
 export class Page extends BaseClass {
-  constructor(private pageNumber: number, private tuples: Tuple[]) {
+  constructor(
+    private pageNumber: number,
+    private tuples: Tuple[]
+  ) {
     super();
   }
-  
 
   getPageNumber(): number {
     return this.pageNumber;

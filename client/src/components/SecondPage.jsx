@@ -9,13 +9,12 @@ import Statistics from './Statistics';
 import { Actions } from '../data/actions';
 import { useNavigate } from 'react-router-dom';
 
-
 //receber um objeto de página
 //objeto vai conter as tuplas
 //cada tupla e composta de dois atributos: line e valueOfData
 
 function SecondPage() {
-  const [value, setValue] = useState(''); 
+  const [value, setValue] = useState('');
   const [page, setPage] = useState();
   const [pageNumber, setPageNumber] = useState();
   const [visitedPages, setVisitedPages] = useState();
@@ -33,7 +32,6 @@ function SecondPage() {
           collisionsRate: data.values.overflowRate,
           overflowRate: data.values.collisionsRate,
         });
-        
       } catch (error) {
         console.error('Erro ao buscar estatísticas:', error);
       }
@@ -42,28 +40,25 @@ function SecondPage() {
     fetchStats();
   }, []);
 
-  useEffect( () =>{
-    if(pageNumber != undefined){
-      const response =  Actions.getPage(pageNumber).then(
-        (response)=>{
-          setPage(response)
-        }
-      )
-      
-      
+  useEffect(() => {
+    if (pageNumber != undefined) {
+      const response = Actions.getPage(pageNumber).then((response) => {
+        setPage(response);
+      });
     }
-  },[pageNumber])
-  
+  }, [pageNumber]);
 
   const handleBackPage = async () => {
-    const response =  await Actions.setResetLoad()
-    
-    if(response){ navigate('/') }
+    const response = await Actions.setResetLoad();
+
+    if (response) {
+      navigate('/');
+    }
   };
 
   const handleSearchByValue = async () => {
     try {
-      const response = await Actions.getByValueWithBucketSearch(value)
+      const response = await Actions.getByValueWithBucketSearch(value);
 
       setPageNumber(response);
     } catch (error) {
@@ -73,9 +68,9 @@ function SecondPage() {
 
   const handleSearchByTableScan = async () => {
     try {
-      const response = await Actions.getByValueWithTableScanSearch(value)
+      const response = await Actions.getByValueWithTableScanSearch(value);
 
-      setVisitedPages(response)
+      setVisitedPages(response);
     } catch (error) {
       console.error('Erro ao buscar com table scan:', error);
     }
@@ -89,13 +84,17 @@ function SecondPage() {
       />
       <h1 className="TituloForm">Pesquisa na base de dados</h1>
       <Label description="Escolha um elemento da base para ser pesquisado" />
-      
-      {pageNumber !== undefined && 
+
+      {pageNumber !== undefined && (
         <Label description={'Valor esta localizado na pagina: ' + pageNumber} />
-      }
-      {visitedPages !== undefined && 
-        <Label description={'A quantidade de paginas percorridas na consulta: ' + visitedPages} />
-      }
+      )}
+      {visitedPages !== undefined && (
+        <Label
+          description={
+            'A quantidade de paginas percorridas na consulta: ' + visitedPages
+          }
+        />
+      )}
       <Input texto="Insira o valor" value={value} onChange={setValue} />
       <div className="PageButtons">
         <Button label="Voltar" onClick={handleBackPage} />

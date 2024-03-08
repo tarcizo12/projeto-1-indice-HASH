@@ -1,15 +1,20 @@
+export class Statistics {
+  private numberOfOverflows: number;
+  private numberOfCollisions: number;
 
+  getNumberOfOverflows(): number {
+    return this.numberOfOverflows;
+  }
 
-export class Statistics{
-    private numberOfOverflows: number;
-    private numberOfCollisions: number;
+  getNumberOfCollisions(): number {
+    return this.numberOfCollisions;
+  }
 
+  setNumberOfOverflows(value: number): void {
+    this.numberOfOverflows = value;
+  }
 
-    getNumberOfOverflows(): number {return this.numberOfOverflows}
-
-    getNumberOfCollisions(): number {return this.numberOfCollisions}
-
-    setNumberOfOverflows(value: number): void{this.numberOfOverflows = value}
-
-    setNumberOfCollisions(value: number): void {this.numberOfCollisions = value}
+  setNumberOfCollisions(value: number): void {
+    this.numberOfCollisions = value;
+  }
 }
