@@ -3,7 +3,7 @@ import '../index.css';
 
 function Label(props) {
     return(
-        <label className='CampoLabel'>{props.descricao}</label>
+        <label className='CampoLabel'>{props.description}</label>
     );
 }
 
