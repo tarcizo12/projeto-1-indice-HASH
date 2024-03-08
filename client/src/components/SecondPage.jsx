@@ -1,36 +1,39 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import Button from './Button';
 import Input from './Input';
 import Label from './Label';
 import Table from './Table';
 import '../index.css';
 import Statistics from './Statistics';
+import { Actions } from '../data/actions';
+import { useNavigate } from 'react-router-dom';
+
 
 //receber um objeto de página
 //objeto vai conter as tuplas
 //cada tupla e composta de dois atributos: line e valueOfData
 
 function SecondPage() {
-  const [value, setValue] = useState(''); // Defina o valor desejado
+  const [value, setValue] = useState(''); 
   const [page, setPage] = useState();
   const [pageNumber, setPageNumber] = useState();
-  const navigate = useNavigate();
-
+  const [visitedPages, setVisitedPages] = useState();
   const [stats, setStats] = useState({ collisionsRate: 0, overflowRate: 0 });
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const response = await fetch('http://localhost:3000/statics');
-        const data = await response.json();
+        const data = await Actions.getStatics();
 
         console.log('Dados recebidos:', data); // Adicionado para debug
+
         setStats({
           collisionsRate: data.values.overflowRate,
           overflowRate: data.values.collisionsRate,
         });
+        
       } catch (error) {
         console.error('Erro ao buscar estatísticas:', error);
       }
@@ -39,70 +42,40 @@ function SecondPage() {
     fetchStats();
   }, []);
 
-  const handleBackPage = async () => {
-    await fetch('http://localhost:3000/reset', {
-      method: 'get',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then(async (response) => {
-        const result = await response.json();
-        const resposta = result.values.reset;
+  useEffect( () =>{
+    if(pageNumber != undefined){
+      const response =  Actions.getPage(pageNumber).then(
+        (response)=>{console.log("Pagina -> ", response)}
+      )
+      
+      
+    }
+  },[pageNumber])
+  
 
-        if (resposta) {
-          navigate('/');
-        } else {
-          console.error('Erro ao enviar solicitação:', response.statusText);
-        }
-      })
-      .catch((error) => {
-        console.error('Erro na requisição:', error);
-      });
+  const handleBackPage = async () => {
+    const response =  await Actions.setResetLoad()
+    
+    if(response){ navigate('/') }
   };
 
   const handleSearchByValue = async () => {
     try {
-      const response = await fetch(
-        `http://localhost:3000/findByValue/${value}`,
-        {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      );
+      const response = await Actions.getByValueWithBucketSearch(value)
 
-      if (response.ok) {
-        const result = await response.json();
-        const pageNumber = result.values.numberPageOfValue;
-        setPageNumber(pageNumber);
-      } else {
-        console.error('Erro ao enviar solicitação:', response.statusText);
-      }
+      setPageNumber(response);
     } catch (error) {
-      console.error('Erro na requisição:', error);
+      console.error('Erro ao buscar com bucket:', error);
     }
   };
 
   const handleSearchByTableScan = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/tableScan/${value}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+      const response = await Actions.getByValueWithTableScanSearch(value)
 
-      // if (response.ok) {
-      //   const result = await response.json();
-      //   const pageNumber = result.values.numberPageOfValue;
-      //   setPageNumber(pageNumber);
-      // } else {
-      //   console.error('Erro ao enviar solicitação:', response.statusText);
-      // }
+      setVisitedPages(response)
     } catch (error) {
-      console.error('Erro na requisição:', error);
+      console.error('Erro ao buscar com table scan:', error);
     }
   };
 
@@ -114,9 +87,13 @@ function SecondPage() {
       />
       <h1 className="TituloForm">Pesquisa na base de dados</h1>
       <Label description="Escolha um elemento da base para ser pesquisado" />
-      {pageNumber !== undefined && (
+      
+      {pageNumber !== undefined && 
         <Label description={'Valor esta localizado na pagina: ' + pageNumber} />
-      )}
+      }
+      {visitedPages !== undefined && 
+        <Label description={'A quantidade de paginas percorridas na consulta: ' + visitedPages} />
+      }
       <Input texto="Insira o valor" value={value} onChange={setValue} />
       <div className="PageButtons">
         <Button label="Voltar" onClick={handleBackPage} />
@@ -127,7 +104,6 @@ function SecondPage() {
         />
       </div>
       {page && <Table data={page.tuples} />}{' '}
-      {/* Assumindo que a página tem uma propriedade 'data' */}
     </div>
   );
 }
