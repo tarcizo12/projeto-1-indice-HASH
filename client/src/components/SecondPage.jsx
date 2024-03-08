@@ -43,7 +43,7 @@ function SecondPage() {
   useEffect(() => {
     if (pageNumber != undefined) {
       const response = Actions.getPage(pageNumber).then((response) => {
-        console.log('Pagina -> ', response);
+        setPage(response);
       });
     }
   }, [pageNumber]);
@@ -84,6 +84,7 @@ function SecondPage() {
       />
       <h1 className="TituloForm">Pesquisa na base de dados</h1>
       <Label description="Escolha um elemento da base para ser pesquisado" />
+
       {pageNumber !== undefined && (
         <Label description={'Valor esta localizado na pagina: ' + pageNumber} />
       )}
@@ -103,7 +104,7 @@ function SecondPage() {
           onClick={handleSearchByTableScan}
         />
       </div>
-      {page && <Table data={page.tuples} />}{' '}
+      {page && <Table data={page.tuples} value={value} />}
     </div>
   );
 }

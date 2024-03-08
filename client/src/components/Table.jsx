@@ -12,7 +12,12 @@ function Table(props) {
       </thead>
       <tbody>
         {props.data.map((item, index) => (
-          <tr key={index}>
+          <tr
+            key={index}
+            className={
+              item.valueOfData === props.value ? 'highlighted-row' : ''
+            }
+          >
             <td>{item.line}</td>
             <td>{item.valueOfData}</td>
           </tr>
