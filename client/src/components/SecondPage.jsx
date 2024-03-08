@@ -39,17 +39,6 @@ function SecondPage() {
     fetchStats();
   }, []);
 
-  useEffect(() => {
-    console.log('teste: ', pageNumber);
-    if (pageNumber !== undefined) {
-      handleSearchPage(pageNumber);
-    }
-  }, [pageNumber]);
-
-  const handleSearchPage = (pageNumber) => {
-    console.log('Valor atualizado da pagina->', pageNumber);
-  };
-
   const handleBackPage = async () => {
     await fetch('http://localhost:3000/reset', {
       method: 'get',
@@ -74,12 +63,15 @@ function SecondPage() {
 
   const handleSearchByValue = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/findByValue/${value}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+      const response = await fetch(
+        `http://localhost:3000/findByValue/${value}`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
 
       if (response.ok) {
         const result = await response.json();
@@ -88,6 +80,27 @@ function SecondPage() {
       } else {
         console.error('Erro ao enviar solicitação:', response.statusText);
       }
+    } catch (error) {
+      console.error('Erro na requisição:', error);
+    }
+  };
+
+  const handleSearchByTableScan = async () => {
+    try {
+      const response = await fetch(`http://localhost:3000/tableScan/${value}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      // if (response.ok) {
+      //   const result = await response.json();
+      //   const pageNumber = result.values.numberPageOfValue;
+      //   setPageNumber(pageNumber);
+      // } else {
+      //   console.error('Erro ao enviar solicitação:', response.statusText);
+      // }
     } catch (error) {
       console.error('Erro na requisição:', error);
     }
@@ -107,7 +120,11 @@ function SecondPage() {
       <Input texto="Insira o valor" value={value} onChange={setValue} />
       <div className="PageButtons">
         <Button label="Voltar" onClick={handleBackPage} />
-        <Button label="Pesquisar" onClick={handleSearchByValue} />
+        <Button label="Pesquisar com Índice" onClick={handleSearchByValue} />
+        <Button
+          label="Pesquisar com Table Scan"
+          onClick={handleSearchByTableScan}
+        />
       </div>
       {page && <Table data={page.tuples} />}{' '}
       {/* Assumindo que a página tem uma propriedade 'data' */}
