@@ -1,0 +1,32 @@
+version: '3.7'
+
+services:
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+      target: base
+    volumes:
+      - ./api:/home/node/app
+      - ./api/node_modules
+    container_name: indice-hash-api
+    expose:
+      - '3000'
+    ports:
+      - '3000:3000'
+    command: npm run dev
+
+  frontend:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    volumes:
+      - ./frontend:/home/node/app/frontend
+    container_name: indice-hash-frontend
+    depends_on:
+      - api
+    expose:
+      - '4000'
+    ports:
+      - '4000:4000'
+    command: npm start
