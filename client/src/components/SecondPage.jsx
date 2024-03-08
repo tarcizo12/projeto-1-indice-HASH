@@ -40,7 +40,7 @@ function SecondPage() {
   }, []);
 
   useEffect(() => {
-    console.log('teste: ', pageNumber)
+    console.log('teste: ', pageNumber);
     if (pageNumber !== undefined) {
       handleSearchPage(pageNumber);
     }
@@ -60,7 +60,7 @@ function SecondPage() {
       .then(async (response) => {
         const result = await response.json();
         const resposta = result.values.reset;
-        
+
         if (resposta) {
           navigate('/');
         } else {
@@ -73,7 +73,6 @@ function SecondPage() {
   };
 
   const handleSearchByValue = async () => {
-  
     try {
       const response = await fetch(`http://localhost:3000/findByValue/${value}`, {
         method: 'GET',
@@ -102,9 +101,9 @@ function SecondPage() {
       />
       <h1 className="TituloForm">Pesquisa na base de dados</h1>
       <Label description="Escolha um elemento da base para ser pesquisado" />
-      {/* {pageNumber !== undefined && ( */}
-      <Label  description={'Valor esta localizado na pagina: ' + pageNumber} />
-      {/* )} */}
+      {pageNumber !== undefined && (
+        <Label description={'Valor esta localizado na pagina: ' + pageNumber} />
+      )}
       <Input texto="Insira o valor" value={value} onChange={setValue} />
       <div className="PageButtons">
         <Button label="Voltar" onClick={handleBackPage} />
