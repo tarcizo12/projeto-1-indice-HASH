@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "baseUrl": "./src",
-    "esModuleInterop": true,
+    "esModuleInterop": true
   },
   "target": "esnext",
   "moduleResolution": "node",

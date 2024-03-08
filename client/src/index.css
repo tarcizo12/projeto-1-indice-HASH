@@ -5,16 +5,16 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #EFEFEF;
+  background-color: #efefef;
 }
 
-.container{
+.container {
   container-type: normal;
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content:center;
+  justify-content: center;
   margin: 20vh 50vh;
   padding: 3rem;
   background-color: white;
@@ -22,37 +22,35 @@ body {
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
-
-
-.TituloForm{
+.TituloForm {
   margin: 0 0 2rem 0;
   text-align: center;
 }
 
-.TituloStats{
+.TituloStats {
   margin: 2rem 0 1rem 0;
-  color: #002A53;
+  color: #002a53;
 }
 
-.TextoTela{
+.TextoTela {
   margin: 0 0 1rem 0;
-  color: #002A53;
+  color: #002a53;
 }
 
-.BotaoForm{
+.BotaoForm {
   margin-top: 1rem;
   width: fit-content;
   height: 2rem;
 }
 
-.PageButtons{
+.PageButtons {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: auto;
 }
 
-.PageButtons button{
+.PageButtons button {
   width: auto;
   height: auto;
   padding: 0.5rem;
@@ -63,35 +61,35 @@ body {
   border-radius: 0.3rem;
 }
 
-.PageButtons button:hover{
-  background-color: #002A53;
+.PageButtons button:hover {
+  background-color: #002a53;
   color: white;
 }
 
-.CampoInput{
+.CampoInput {
   width: 100%;
   height: 1.5rem;
   margin-bottom: 1rem;
 }
 
-.CampoLabel{
+.CampoLabel {
   font-size: 1rem;
   color: black;
   margin-bottom: 1rem;
 }
 
-.StatisticsElement{
+.StatisticsElement {
   /*background-image: url('../public/star8.png'
   );
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;*/
-  background-color: #002D62;
+  background-color: #002d62;
   border-radius: 1rem;
   margin-bottom: 1rem;
   position: absolute;
   top: -76px;
-  right:-10%;
+  right: -10%;
   width: 10rem;
   height: 10rem;
   padding: 0.4rem;
@@ -101,7 +99,7 @@ body {
   border-radius: 100px;
 }
 
-.TextoStats{
+.TextoStats {
   margin: 0.4rem 0 0 0;
   text-align: center;
   color: white;
@@ -109,10 +107,11 @@ body {
   font-size: 1.125rem;
 }
 
-.TabelaPagina{
+.TabelaPagina {
   margin-top: 2rem;
 }
 
-.TabelaPagina, td{
+.TabelaPagina,
+td {
   border: 1px solid;
 }

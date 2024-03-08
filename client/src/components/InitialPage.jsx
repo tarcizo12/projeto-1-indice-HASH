@@ -1,50 +1,54 @@
-import React from "react";
+import React from 'react';
 import { useState } from 'react';
-import { useNavigate } from "react-router-dom";
-import Button from "./Button";
-import Input from "./Input";
-import Label from "./Label";
-import "../index.css";
+import { useNavigate } from 'react-router-dom';
+import Button from './Button';
+import Input from './Input';
+import Label from './Label';
+import '../index.css';
 
 function InitialPage() {
-    const [pageSize, setPageSize] = useState(); // Corrigir input
-    const navigate = useNavigate();
+  const [pageSize, setPageSize] = useState(); // Corrigir input
+  const navigate = useNavigate();
 
-    const handlePageSizeChange = (e) => {
-        setPageSize(e);
+  const handlePageSizeChange = (e) => {
+    setPageSize(e);
+  };
+
+  const handleClick = async () => {
+    const url = 'http://localhost:3000/loadData';
+    const config = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ pageSize: Number(pageSize) }),
     };
 
-    const handleClick = async () => {
-    
-        const url = 'http://localhost:3000/loadData';
-        const config = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ pageSize: Number(pageSize) }),
-        };
+    await fetch(url, config)
+      .then(() => {
+        navigate('/second');
+      })
+      .catch((error) => {
+        console.error('Erro ao enviar solicitação:', error);
+      });
+  };
 
-        
-        await fetch(url, config).then(()=>{
-            navigate('/second')
-        }).catch((error)=>{
-            console.error('Erro ao enviar solicitação:', error);
-        });        
-    };
-    
+  return (
+    <div className="container">
+      <h1 className="TituloForm">Implemente uma função hash estática</h1>
+      <Label descricao="Insira aqui o número de registro por página" />
+      <Input
+        type="number"
+        texto=" Número de registros por página"
+        value={pageSize}
+        onChange={handlePageSizeChange}
+      />
 
-    return (
-        <div className="container">
-            <h1 className="TituloForm">Implemente uma função hash estática</h1>
-            <Label descricao="Insira aqui o número de registro por página" />
-            <Input type="number" texto=" Número de registros por página" value={pageSize} onChange={handlePageSizeChange} />
-
-            <div className="BotaoPagina">
-                <Button onClick={handleClick} label="Enviar" />
-            </div>
-        </div>
-    );
+      <div className="BotaoPagina">
+        <Button onClick={handleClick} label="Enviar" />
+      </div>
+    </div>
+  );
 }
 
 export default InitialPage;

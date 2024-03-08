@@ -3,7 +3,7 @@ import '../index.css';
 
 function SimpleButton({ onClick, label }) {
   return (
-    <button className='BotaoForm' onClick={onClick}>
+    <button className="BotaoForm" onClick={onClick}>
       {label}
     </button>
   );

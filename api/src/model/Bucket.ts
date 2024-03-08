@@ -23,10 +23,10 @@ export class Bucket extends BaseClass {
   addMapping(key: string, pageNumber: number): void {
     if (!this.bucketIsFull) {
       this.mapping[key] = pageNumber;
-      this.setBucketState(Object.keys(this.mapping).length === this.maxSizeOfBucket);
-
+      this.setBucketState(
+        Object.keys(this.mapping).length === this.maxSizeOfBucket
+      );
     } else {
-      
       if (this.nextBucket === null) {
         this.nextBucket = new Bucket(this.maxSizeOfBucket);
       }
@@ -36,16 +36,20 @@ export class Bucket extends BaseClass {
   }
 
   getPageNumberByKey(key: string): number | undefined {
-    if (key in this.mapping) { return this.mapping[key] }
-    
-    if(this.nextBucket !== null) { return this.nextBucket.getPageNumberByKey(key) } 
-    
+    if (key in this.mapping) {
+      return this.mapping[key];
+    }
+
+    if (this.nextBucket !== null) {
+      return this.nextBucket.getPageNumberByKey(key);
+    }
+
     return undefined;
   }
 
   getSize(): number {
     const size = Object.keys(this.mapping).length;
-    
+
     return size;
   }
 
@@ -57,5 +61,7 @@ export class Bucket extends BaseClass {
     return this.bucketIsFull;
   }
 
-  getNextBucket(): Bucket{return this.nextBucket}
+  getNextBucket(): Bucket {
+    return this.nextBucket;
+  }
 }
