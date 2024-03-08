@@ -116,3 +116,8 @@ body {
 .TabelaPagina, td{
   border: 1px solid;
 }
+
+.highlighted-row {
+  background-color: green;
+  color: white; /* Adapte as cores conforme necessário */
+}

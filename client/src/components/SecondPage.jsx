@@ -45,7 +45,9 @@ function SecondPage() {
   useEffect( () =>{
     if(pageNumber != undefined){
       const response =  Actions.getPage(pageNumber).then(
-        (response)=>{console.log("Pagina -> ", response)}
+        (response)=>{
+          setPage(response)
+        }
       )
       
       
@@ -103,7 +105,7 @@ function SecondPage() {
           onClick={handleSearchByTableScan}
         />
       </div>
-      {page && <Table data={page.tuples} />}{' '}
+      {page && <Table data={page.tuples} value={value} />}
     </div>
   );
 }
