@@ -56,16 +56,16 @@ class App {
       });
     });
 
-    //Estatisticas
+    //Estatísticas
     this.app.get('/statics', (req, res) => {
       // Ainda fazendo
       this.statisticsService.calculateStatics(
-        this.mainService.getAllBucketsCreateds()
+        this.mainService.getAllBucketsCreated()
       );
 
       const currentValueOfOverflowRate: number =
         this.statisticsService.calculateOverflowRate(
-          this.mainService.getAllBucketsCreateds().length
+          this.mainService.getAllBucketsCreated().length
         );
 
       const currentValueOfCollisionsRate: number =

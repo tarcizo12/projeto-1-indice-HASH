@@ -36,7 +36,7 @@ function InitialPage() {
   return (
     <div className="container">
       <h1 className="TituloForm">Implemente uma função hash estática</h1>
-      <Label descricao="Insira aqui o número de registro por página" />
+      <Label description="Insira aqui o número de registro por página" />
       <Input
         type="number"
         texto=" Número de registros por página"

@@ -5,14 +5,14 @@ export class Bucket extends BaseClass {
   private bucketIsFull: boolean = false;
   private nextBucket: Bucket | null;
   // private numberOfOverflows: number;
-  // private numberOfColisions: number;
+  // private numberOfCollisions: number;
 
   constructor(sizeBucket: number) {
     super();
     this.mapping = {};
     this.maxSizeOfBucket = sizeBucket;
     this.nextBucket = null;
-    // this.numberOfColisions = 0;
+    // this.numberOfCollisions = 0;
     // this.numberOfOverflows = 0;
   }
 

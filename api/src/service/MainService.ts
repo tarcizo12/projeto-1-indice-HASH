@@ -70,7 +70,7 @@ export class MainService {
     return this.buckets[hasValue].getPageNumberByKey(value);
   }
 
-  getAllBucketsCreateds(): Bucket[] {
+  getAllBucketsCreated(): Bucket[] {
     return this.buckets;
   }
 
