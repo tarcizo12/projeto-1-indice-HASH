@@ -25,8 +25,6 @@ services:
     container_name: indice-hash-frontend
     depends_on:
       - api
-    expose:
-      - '4000'
     ports:
       - '4000:4000'
     command: npm start
