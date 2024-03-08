@@ -21,4 +21,4 @@ export class FileReader {
     getLines(): string[] {
         return this.lines;
     }
-};
+}

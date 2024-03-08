@@ -19,7 +19,7 @@ export class StatisticsService {
 
     calculateStatics(bucketsOfLoad: Bucket[]): void {
         let totalNextBucketsOnOverflow = 0;
-        let totalColisions = 0;
+        let totalCollisions = 0;
 
         bucketsOfLoad.forEach((bucket: Bucket) => {
             //console.log(bucket)
@@ -28,13 +28,13 @@ export class StatisticsService {
 
             while (currentBucket !== null) {
                 totalNextBucketsOnOverflow++;
-                totalColisions += currentBucket.getSize();
+                totalCollisions += currentBucket.getSize();
                 currentBucket = currentBucket.getNextBucket();
             }
         });
 
         this.staticsOfLoad.setNumberOfOverflows(totalNextBucketsOnOverflow);
-        this.staticsOfLoad.setNumberOfColisions(totalColisions)
+        this.staticsOfLoad.setNumberOfCollisions(totalCollisions)
     }
 
 
@@ -44,7 +44,7 @@ export class StatisticsService {
             return 0; // Evita divisão por zero
         }
 
-        const currentTotalCollisions = this.getStaticsOfLoad().getNumberOfColisions();
+        const currentTotalCollisions = this.getStaticsOfLoad().getNumberOfCollisions();
 
         return currentTotalCollisions / tableSize;
     }

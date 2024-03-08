@@ -5,12 +5,11 @@ import { Table } from './model/Table';
 import { MainService } from './service/MainService';
 import { Page } from './model/Page';
 import { StatisticsService } from './service/StaticsService';
-import { Statistics } from 'model/Statistics';
 
 class App {
   private app: express.Application;
   private tableService: TableService;
-  private statiticsService: StatisticsService;
+  private statisticsService: StatisticsService;
   private mainService: MainService;
   private table: Table;
   private readonly BUCKET_SIZE: number = 2;
@@ -20,7 +19,7 @@ class App {
     this.tableService = new TableService();
     this.mainService = new MainService();
     this.table = this.tableService.getTableOfTXT();
-    this.statiticsService = new StatisticsService();
+    this.statisticsService = new StatisticsService();
     this.app = express();
     this.setupMiddleware();
     this.setupRoutes();
@@ -66,13 +65,13 @@ class App {
     this.app.get('/statics', (req,res) => {
 
       // Ainda fazendo
-      this.statiticsService.calculateStatics( this.mainService.getAllBucketsCreateds() );
+      this.statisticsService.calculateStatics( this.mainService.getAllBucketsCreateds() );
       
-      const currentValueOfOverflowRate: number = this.statiticsService.calculateOverflowRate(
+      const currentValueOfOverflowRate: number = this.statisticsService.calculateOverflowRate(
         this.mainService.getAllBucketsCreateds().length
       );
 
-      const currentValueOfCollisionsRate: number = this.statiticsService.calculateCollisionRate(
+      const currentValueOfCollisionsRate: number = this.statisticsService.calculateCollisionRate(
         this.table.getListOfTuples().length
       );
 
@@ -113,6 +112,16 @@ class App {
       })
 
     })
+
+    this.app.get('/reset', (req,res) => {
+      this.mainService.reset();
+      return res.json({
+        values: {
+          reset: true
+        }
+      })
+    }
+    )
 
   }
 

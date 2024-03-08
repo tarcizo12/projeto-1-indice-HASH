@@ -36,26 +36,26 @@ export class Bucket extends BaseClass {
   }
 
   getPageNumberByKey(key: string): number | undefined {
-    if (key in this.mapping) { return this.mapping[key] }; 
+    if (key in this.mapping) { return this.mapping[key] }
     
-    if(this.nextBucket !== null) { return this.nextBucket.getPageNumberByKey(key) }; 
+    if(this.nextBucket !== null) { return this.nextBucket.getPageNumberByKey(key) } 
     
     return undefined;
   }
 
   getSize(): number {
-    let size = Object.keys(this.mapping).length;
+    const size = Object.keys(this.mapping).length;
     
     return size;
   }
 
   setBucketState(state: boolean): void {
     this.bucketIsFull = state;
-  };
+  }
 
   getBucketState(): boolean {
     return this.bucketIsFull;
-  };
+  }
 
   getNextBucket(): Bucket{return this.nextBucket}
 }

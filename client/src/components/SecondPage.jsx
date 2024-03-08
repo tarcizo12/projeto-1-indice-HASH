@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import Button from './Button';
 import Input from './Input';
 import Label from './Label';
@@ -14,7 +14,7 @@ import Statistics from './Statistics';
 
 function SecondPage() {
   const [value, setValue] = useState(''); // Defina o valor desejado
-  const [page, setPage] = useState(null);
+  const [page, setPage] = useState();
   const [pageNumber, setPageNumber] = useState();
   const navigate = useNavigate();
 
@@ -40,6 +40,7 @@ function SecondPage() {
   }, []);
 
   useEffect(() => {
+    console.log('teste: ', pageNumber)
     if (pageNumber !== undefined) {
       handleSearchPage(pageNumber);
     }
@@ -49,11 +50,30 @@ function SecondPage() {
     console.log('Valor atualizado da pagina->', pageNumber);
   };
 
-  const handleBackPage = () => { 
-    navigate('/')
-  }
+  const handleBackPage = async () => {
+    await fetch('http://localhost:3000/reset', {
+      method: 'get',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(async (response) => {
+        const result = await response.json();
+        const resposta = result.values.reset;
+        
+        if (resposta) {
+          navigate('/');
+        } else {
+          console.error('Erro ao enviar solicitação:', response.statusText);
+        }
+      })
+      .catch((error) => {
+        console.error('Erro na requisição:', error);
+      });
+  };
 
   const handleSearchByValue = async () => {
+  
     try {
       const response = await fetch(`http://localhost:3000/findByValue/${value}`, {
         method: 'GET',
@@ -82,9 +102,9 @@ function SecondPage() {
       />
       <h1 className="TituloForm">Pesquisa na base de dados</h1>
       <Label description="Escolha um elemento da base para ser pesquisado" />
-      {pageNumber !== undefined && (
-        <Label description={'Valor esta localizado na pagina: ' + pageNumber} />
-      )}
+      {/* {pageNumber !== undefined && ( */}
+      <Label  description={'Valor esta localizado na pagina: ' + pageNumber} />
+      {/* )} */}
       <Input texto="Insira o valor" value={value} onChange={setValue} />
       <div className="PageButtons">
         <Button label="Voltar" onClick={handleBackPage} />

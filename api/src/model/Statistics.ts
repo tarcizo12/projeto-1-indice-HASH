@@ -2,14 +2,14 @@
 
 export class Statistics{
     private numberOfOverflows: number;
-    private numberOfColisions: number;
+    private numberOfCollisions: number;
 
 
     getNumberOfOverflows(): number {return this.numberOfOverflows}
 
-    getNumberOfColisions(): number {return this.numberOfColisions}
+    getNumberOfCollisions(): number {return this.numberOfCollisions}
 
     setNumberOfOverflows(value: number): void{this.numberOfOverflows = value}
 
-    setNumberOfColisions(value: number): void {this.numberOfColisions = value}
-};
+    setNumberOfCollisions(value: number): void {this.numberOfCollisions = value}
+}

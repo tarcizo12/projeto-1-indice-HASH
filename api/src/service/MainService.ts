@@ -27,7 +27,7 @@ export class MainService {
             this.pages.push(currentPage);
         }
         return this.pages;
-    };
+    }
 
     private handleCreationBucket(bucketSize: number): void {
         const bucketArray: Bucket[] = Array.from({length: this.numberMaxOfBuckets}, () => new Bucket(bucketSize));
@@ -38,7 +38,7 @@ export class MainService {
             })
         });
         this.buckets = bucketArray;
-    };
+    }
 
     handleCreationPagesWithBuckets(bucketSize: number, pageSize: number, table: Table): void {
         //1º - Cria as paginas
@@ -47,15 +47,21 @@ export class MainService {
 
         //2º - Gerencia a criação dos buckets de acordo com as paginas
         this.handleCreationBucket(bucketSize);
-    };
+    }
 
     getPageByValue(value: string): number {
         const hasValue = this.hashFunction.hashT(value, this.numberMaxOfBuckets);
 
         return this.buckets[hasValue].getPageNumberByKey(value)
-    };
+    }
 
     getAllBucketsCreateds(): Bucket[]{return this.buckets}
 
-    getPageById(pageId: number): Page{return this.pages[pageId]};
+    getPageById(pageId: number): Page{ return this.pages[pageId] }
+    
+    reset(): void {
+        this.buckets = [];
+        this.pages = [];
+        this.numberMaxOfBuckets = 0;
+    }
 }
