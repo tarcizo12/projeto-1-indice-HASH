@@ -29,8 +29,8 @@ function SecondPage() {
         console.log('Dados recebidos:', data); // Adicionado para debug
 
         setStats({
-          collisionsRate: data.values.overflowRate,
-          overflowRate: data.values.collisionsRate,
+          collisionsRate: data.values.collisionsRate,
+          overflowRate: data.values.overflowRate,
         });
       } catch (error) {
         console.error('Erro ao buscar estatísticas:', error);
@@ -41,7 +41,7 @@ function SecondPage() {
   }, []);
 
   useEffect(() => {
-    if (pageNumber != undefined) {
+    if (pageNumber !== undefined) {
       const response = Actions.getPage(pageNumber).then((response) => {
         setPage(response);
       });
