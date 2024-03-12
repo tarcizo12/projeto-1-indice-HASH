@@ -12,7 +12,7 @@ class App {
   private statisticsService: StatisticsService;
   private mainService: MainService;
   private table: Table;
-  private readonly BUCKET_SIZE: number = 2;
+  private readonly BUCKET_SIZE: number = 100;
 
   constructor() {
     this.tableService = new TableService();
@@ -62,7 +62,9 @@ class App {
       this.statisticsService.calculateStatics(
         this.mainService.getAllBucketsCreated()
       );
-
+      
+     
+        //Passa 4
       const currentValueOfOverflowRate: number =
         this.statisticsService.calculateOverflowRate(
           this.mainService.getAllBucketsCreated().length
@@ -76,9 +78,10 @@ class App {
       return res.json({
         values: {
           overflowRate: Number((currentValueOfOverflowRate * 100).toFixed(2)),
-          collisionsRate: Number(
-            (currentValueOfCollisionsRate * 100).toFixed(2)
-          ),
+          collisionsRate: Number((currentValueOfCollisionsRate * 100).toFixed(2)),
+          numberOfOverflows: this.statisticsService.getStaticsOfLoad().getNumberOfOverflows(),
+          numberOfColisions: this.statisticsService.getStaticsOfLoad().getNumberOfCollisions()
+
         },
       });
     });
@@ -87,7 +90,7 @@ class App {
     this.app.get('/findByValue/:value', (req, res) => {
       const value: string = req.params.value;
 
-      const pageNumber = this.mainService.getPageByValue(value);
+      const pageNumber: number = this.mainService.getPageByValue(value);
 
       return res.json({
         values: {

@@ -19,21 +19,27 @@ export class StatisticsService {
   calculateStatics(bucketsOfLoad: Bucket[]): void {
     let totalNextBucketsOnOverflow = 0;
     let totalCollisions = 0;
-
+    
     bucketsOfLoad.forEach((bucket: Bucket) => {
-      //console.log(bucket)
-
+    
       let currentBucket = bucket.getNextBucket();
 
-      while (currentBucket !== null) {
+      while (currentBucket !== null) {  
         totalNextBucketsOnOverflow++;
+
         totalCollisions += currentBucket.getSize();
         currentBucket = currentBucket.getNextBucket();
       }
+
+      
     });
 
     this.staticsOfLoad.setNumberOfOverflows(totalNextBucketsOnOverflow);
     this.staticsOfLoad.setNumberOfCollisions(totalCollisions);
+    
+    console.log("Colisoes -> ", totalCollisions)
+    console.log("Overflow -> ", totalNextBucketsOnOverflow)
+    console.log("FIM DE CALCULO \n \n \n \n")
   }
 
   calculateCollisionRate(tableSize: number): number {
@@ -48,14 +54,14 @@ export class StatisticsService {
   }
 
   // Função para calcular a taxa de overflows
-  calculateOverflowRate(bucketsSize: number): number {
-    if (bucketsSize === 0) {
+  calculateOverflowRate(numberOfBuckets: number): number {
+    if (numberOfBuckets === 0) {
       return 0; // Evita divisão por zero
     }
 
     const currentTotalOverFlows =
       this.getStaticsOfLoad().getNumberOfOverflows();
 
-    return currentTotalOverFlows / bucketsSize;
+    return currentTotalOverFlows / numberOfBuckets;
   }
 }

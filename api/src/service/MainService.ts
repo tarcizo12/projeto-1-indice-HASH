@@ -34,6 +34,8 @@ export class MainService {
       { length: this.numberMaxOfBuckets },
       () => new Bucket(bucketSize)
     );
+
+
     this.pages.forEach((page: Page) => {
       page.getTuples().forEach((tuple: Tuple) => {
         const hashKeyValue = this.hashFunction.hashT(

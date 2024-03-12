@@ -18,20 +18,24 @@ function SecondPage() {
   const [page, setPage] = useState();
   const [pageNumber, setPageNumber] = useState();
   const [visitedPages, setVisitedPages] = useState();
-  const [stats, setStats] = useState({ collisionsRate: 0, overflowRate: 0 });
+  const [stats, setStats] = useState({ 
+    collisionsRate: 0, overflowRate: 0, 
+    numberOfOverflows: 0 , numberOfColisions: 0 });
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchStats = async () => {
       try {
         const data = await Actions.getStatics();
-
-        console.log('Dados recebidos:', data); // Adicionado para debug
-
-        setStats({
+        const newStatics = {
           collisionsRate: data.values.collisionsRate,
           overflowRate: data.values.overflowRate,
-        });
+          numberOfColisions: data.values.numberOfColisions,
+          numberOfOverflows: data.values.numberOfOverflows
+        }
+
+        console.log("Estatisticas -> ", newStatics)
+        setStats(newStatics);
       } catch (error) {
         console.error('Erro ao buscar estatísticas:', error);
       }
@@ -79,8 +83,8 @@ function SecondPage() {
   return (
     <div className="container">
       <Statistics
-        numberOfCollisions={stats.collisionsRate}
-        numberOfOverflows={stats.overflowRate}
+        collisionsRate={stats.collisionsRate}
+        overflowRate={stats.overflowRate}
       />
       <h1 className="TituloForm">Pesquisa na base de dados</h1>
       <Label description="Escolha um elemento da base para ser pesquisado" />
